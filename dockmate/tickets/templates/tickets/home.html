@@ -1,0 +1,17 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+    <p>test</p>
+    {% for ticket in tickets %}
+        {% for person in people %}
+            {% if ticket.customerID == person.ID %}
+                <h2>{{ person.firstName }} {{ person.lastName }} - {{ ticket.time }}</h2>
+                {% for boat in boats %}
+                    {% if boat.ID == ticket.boatID %}
+                        <p>Boat - {{ boat.manufacturer }}{{ boat.model }} - {{ boat.slipID }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            
+        {% endfor %}
+    {% endfor %}
+{% endblock content %}
