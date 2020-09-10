@@ -7,7 +7,10 @@
 
     <!--bootstrap4 stylesheet-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--main stylesheet-->
     <link rel="stylesheet" href="{% static 'tickets/main.css' %}">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
     <title>Dockmate Home</title>
 </head>
@@ -45,13 +48,15 @@
         <div class="wrapper">
             <!--Sidebar-->
             <nav id="sidebar">
-                <div class="sidebar-header pl-3 mt-3">
-                    <h3>sidebar</h3>
+                <div class=" container sidebar-header pl-3 mt-3">
+                    <h3>Company Name</h3>
                 </div>
                 <ul class="navbar-nav">
-                  <p>Quick Actions</p>
+                  <div class="container justify-content-center">
+                    <p>Quick Actions</p>
+                  </div>
                   <li>
-                    <a href="#ticketsSubmenu" data-toggle="collapse" aria-expanded="false" class="">Tickets</a>
+                    <a href="#ticketsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
                     <ul class="collapse" id="ticketsSubmenu">
                       <li>
                         <a href="#">Create Ticket</a>
@@ -75,6 +80,14 @@
             </nav>
             <!--page body-->
             <div id="content">
+                <div class="container-fluid">
+    
+                    <button type="button" id="sidebarCollapse" class="btn btn-info sidebarButton">
+                        <i class="fas fa-align-right"></i>
+                        <span>Toggle Sidebar</span>
+                    </button>
+                </div>
+  
                 {% block content %}{% endblock %}
             </div>
 
@@ -92,4 +105,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!--main javascript-->
 <script src="{% static 'tickets/main.js' %}"></script>
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
 </html>
