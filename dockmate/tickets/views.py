@@ -41,7 +41,7 @@ tickets = [
         'inWater':True,
         'onRack':False,
         'ice':True,
-        'Maninence':False,
+        'Maintenance':False,
         'time':'10:30'
     },
     {
@@ -51,7 +51,7 @@ tickets = [
         'inWater':False,
         'onRack':True,
         'ice':False,
-        'Maninence':'Oil Tique and De-Winterize',
+        'Maintenance':'Oil Tique and De-Winterize',
         'time':'10:30'
     }
 ]
@@ -61,6 +61,7 @@ def home(request):
     context = {
         'tickets':tickets,
         'people':people,
-        'boats':boats
+        'boats':boats,
+        'title':'Home'
     }
-    return  render(request, 'tickets/home.html', context, {'title': 'Home'})
+    return  render(request, 'tickets/home.html', context)
