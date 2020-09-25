@@ -3,20 +3,20 @@
     display: flex;
 }
 
-
+#content{
+    position: relative;
+    margin-left: 200px;
+}
 #sidebar{
-    width: 250px;
-    position: fixed;
+    width: 200px;
+    position: absolute;
     top: -1;
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: #7386D5;
+    background: #7386d5;
     color: #fff;
 }
-
-
-
 
 
 body {
