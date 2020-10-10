@@ -1,10 +1,10 @@
 {% extends "tickets/base.html" %}
 {% block content %}
-    {% for ticket in tickets %}
-        {% for key, value in ticket.items %}
-            {% if key == 'Maintenance' %}
-                <h1>{{ value }}</h1>
-            {% endif %}
+    {% for ticket in timedTickets %}
+        <h1>{{ ticket.customer }} - {{ ticket.timeOut }}</h1>
+        <h3>Boat: {{ ticket.boat.year}} {{ ticket.boat.manufacturer}} {{ ticket.boat.model}} - Slip {{ ticket.boat.slip}}</h3>
+        {% for item in ticket.items %}
+            <p>{{ item }}</p>
         {% endfor %}
     {% endfor %}
 {% endblock %}

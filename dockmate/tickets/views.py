@@ -56,12 +56,70 @@ tickets = [
     }
 ]
 
+#even dummier dummy data
+timedTickets = [
+    {
+        'id':'0001',
+        'customer':'Jackson Dodd',
+        'boat':{
+            'manufacturer':'Mastercraft',
+            'model':'XT23',
+            'year':'2015',
+            'Slip':'B15'
+        },
+        'timePlaced':'10:30',
+        'timeOut':'11:00',
+        'date':'July 21, 2020',
+        'items': [
+            'In Water',
+            'Gas',
+            'Ice'
+
+        ]
+    },
+    {
+        'id':'0002',
+        'customer':'Ethan Morrell',
+        'boat':{
+            'manufacturer':'Malibu',
+            'model':'Wakesetter NXZ',
+            'year':'2016',
+            'Slip':'A5'
+        },
+        'timePlaced':'10:30',
+        'timeOut':'11:30',
+        'date':'July 21, 2020',
+        'items': [
+            'In Water',
+            'Gas',
+            'Ice'
+            
+        ]
+    },
+    {
+        'id':'0003',
+        'customer':'Braxton Lazarus',
+        'boat':{
+            'manufacturer':'Mastercraft',
+            'model':'X-Star',
+            'year':'2018',
+            'Slip':'A28'
+        },
+        'timePlaced':'11:00',
+        'timeOut':'12:00',
+        'date':'July 21, 2020',
+        'items': [
+            'In Water',
+            'Gas',
+        ]
+    }
+]
+
+
 
 def home(request):
     context = {
-        'tickets':tickets,
-        'people':people,
-        'boats':boats,
+        'timedTickets': timedTickets,
         'title':'Home'
     }
     return  render(request, 'tickets/home.html', context)
