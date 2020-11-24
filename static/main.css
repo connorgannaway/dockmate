@@ -5,16 +5,26 @@
 
 #content{
     position: relative;
-    margin-left: 200px;
+    padding-left: 200px;
 }
 #sidebar{
     width: 200px;
     position: absolute;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 100%;
     z-index: 999;
     color: #fff;
+}
+
+#timeBlock{
+    width: 500px;
+    margin-right: 50px;
+    left: 70%;
+}
+
+.timed-ticket{
+    width: 500px;
 }
 
 

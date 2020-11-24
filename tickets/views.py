@@ -65,7 +65,7 @@ timedTickets = [
             'manufacturer':'Mastercraft',
             'model':'XT23',
             'year':'2015',
-            'Slip':'B15'
+            'slip':'B15'
         },
         'timePlaced':'10:30',
         'timeOut':'11:00',
@@ -84,7 +84,7 @@ timedTickets = [
             'manufacturer':'Malibu',
             'model':'Wakesetter NXZ',
             'year':'2016',
-            'Slip':'A5'
+            'slip':'A5'
         },
         'timePlaced':'10:30',
         'timeOut':'11:30',
@@ -103,7 +103,7 @@ timedTickets = [
             'manufacturer':'Mastercraft',
             'model':'X-Star',
             'year':'2018',
-            'Slip':'A28'
+            'slip':'A28'
         },
         'timePlaced':'11:00',
         'timeOut':'12:00',

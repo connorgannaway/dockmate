@@ -19,7 +19,7 @@
     <title>Dockmate</title>
     {% endif %}
 </head>
-<body>
+<body onload="getTime()">
     <!--Navbar-->
     <section id="navbar">
       <nav class="mb-1 navbar navbar-expand-lg navbar-dark special-color">
@@ -54,43 +54,46 @@
 
     <section id="main">
         <div class="wrapper">
-            <!--Sidebar-->
-            <nav id="sidebar" class="blue-gradient">
-                <div class=" container sidebar-header pl-3 mt-3">
-                    <h3>Company Name</h3>
+          <!--Sidebar-->
+          <nav id="sidebar" class="blue-gradient">
+              <div class=" container sidebar-header pl-3 mt-3">
+                  <h3>Company Name</h3>
+              </div>
+              <ul class="navbar-nav">
+                <div class="container justify-content-center">
+                  <p>Quick Actions</p>
                 </div>
-                <ul class="navbar-nav">
-                  <div class="container justify-content-center">
-                    <p>Quick Actions</p>
-                  </div>
-                  <li>
-                    <a href="#ticketsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
-                    <ul class="collapse" id="ticketsSubmenu">
-                      <li>
-                        <a href="#">Create Ticket</a>
-                      </li>
-                      <li>
-                        <a href="#">View Tickets</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="#">View Boats</a>
-                  </li>
-                  <li>
-                    <a href="#">View Customers</a>
-                  </li>
-                  <li>
-                    <a href="#">View Employees</a>
-                  </li>
-                </ul>
+                <li>
+                  <a href="#ticketsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
+                  <ul class="collapse" id="ticketsSubmenu">
+                    <li>
+                      <a href="#">Create Ticket</a>
+                    </li>
+                    <li>
+                      <a href="#">View Tickets</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">View Boats</a>
+                </li>
+                <li>
+                  <a href="#">View Customers</a>
+                </li>
+                <li>
+                  <a href="#">View Employees</a>
+                </li>
+              </ul>
+          </nav>
+          
+          <!--page body-->
+          <div id="content" class="ml-3 mr-3">
+              {% block content %}{% endblock %}
+          </div>
 
-            </nav>
-            
-            <!--page body-->
-            <div id="content" class="container content">
-                {% block content %}{% endblock %}
-            </div>
+          <div class="card card-body mt-3">
+            <h4 class="card-title" id="time"></h4>
+          </div>
 
         </div>
     </section>
