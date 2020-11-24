@@ -1,6 +1,7 @@
 .wrapper{
     width: 100%;
     display: flex;
+    margin-top: 55px;
 }
 
 #content{
@@ -9,18 +10,21 @@
 }
 #sidebar{
     width: 200px;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 55px;
     left: 0;
     height: 100%;
     z-index: 999;
     color: #fff;
 }
 
-#timeBlock{
-    width: 500px;
-    margin-right: 50px;
-    left: 70%;
+#info {
+
+}
+
+#timecard{
+    width: 200px;
+    height: 100px;
 }
 
 .timed-ticket{

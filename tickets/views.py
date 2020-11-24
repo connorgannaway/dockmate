@@ -112,6 +112,82 @@ timedTickets = [
             'In Water',
             'Gas',
         ]
+    },
+    {
+        'id':'0001',
+        'customer':'Jackson Dodd',
+        'boat':{
+            'manufacturer':'Mastercraft',
+            'model':'XT23',
+            'year':'2015',
+            'slip':'B15'
+        },
+        'timePlaced':'10:30',
+        'timeOut':'11:00',
+        'date':'July 21, 2020',
+        'items': [
+            'In Water',
+            'Gas',
+            'Ice'
+
+        ]
+    },
+    {
+        'id':'0001',
+        'customer':'Jackson Dodd',
+        'boat':{
+            'manufacturer':'Mastercraft',
+            'model':'XT23',
+            'year':'2015',
+            'slip':'B15'
+        },
+        'timePlaced':'10:30',
+        'timeOut':'11:00',
+        'date':'July 21, 2020',
+        'items': [
+            'In Water',
+            'Gas',
+            'Ice'
+
+        ]
+    },
+    {
+        'id':'0001',
+        'customer':'Jackson Dodd',
+        'boat':{
+            'manufacturer':'Mastercraft',
+            'model':'XT23',
+            'year':'2015',
+            'slip':'B15'
+        },
+        'timePlaced':'10:30',
+        'timeOut':'11:00',
+        'date':'July 21, 2020',
+        'items': [
+            'In Water',
+            'Gas',
+            'Ice'
+
+        ]
+    },
+    {
+        'id':'0001',
+        'customer':'Jackson Dodd',
+        'boat':{
+            'manufacturer':'Mastercraft',
+            'model':'XT23',
+            'year':'2015',
+            'slip':'B15'
+        },
+        'timePlaced':'10:30',
+        'timeOut':'11:00',
+        'date':'July 21, 2020',
+        'items': [
+            'In Water',
+            'Gas',
+            'Ice'
+
+        ]
     }
 ]
 

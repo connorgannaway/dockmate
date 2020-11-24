@@ -22,8 +22,8 @@
 <body onload="getTime()">
     <!--Navbar-->
     <section id="navbar">
-      <nav class="mb-1 navbar navbar-expand-lg navbar-dark special-color">
-        <a class="navbar-brand" href="#">Navbar</a>
+      <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top special-color">
+        <a class="navbar-brand" href="#">Dockmate</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -91,8 +91,10 @@
               {% block content %}{% endblock %}
           </div>
 
-          <div class="card card-body mt-3">
-            <h4 class="card-title" id="time"></h4>
+          <div id="info" class="ml-3 mr-3">
+            <div class="card card-body mt-3 justify-content-center" id="timecard">
+              <h4 class="card-title text-center mb-0" id="time"></h4>
+            </div>
           </div>
 
         </div>
