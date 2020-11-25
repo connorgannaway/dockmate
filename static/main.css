@@ -31,6 +31,9 @@
     width: 500px;
 }
 
+#navbar nav div ul li a[aria-expanded="true"]{
+    background-color: #263238;
+}
 
 body {
     background: #fafafa;
