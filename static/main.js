@@ -1,15 +1,23 @@
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
 function getTime() {
-    var today = new Date();
-    var hours = today.getHours();
-    var minutes = today.getMinutes();
-    var seconds = today.getSeconds();
+    let today = new Date();
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    let seconds = today.getSeconds();
+    let date = today.getDate();
+    let day = weekdays[today.getDay()];
+    let month = months[today.getMonth()];
+    let year = today.getFullYear();
     minutes = checkTime(minutes);
     seconds = checkTime(seconds);
 
-    var militaryTime = hours + ":" + minutes + ":" + seconds;
+    let militaryTime = hours + ":" + minutes + ":" + seconds;
     document.getElementById('time').innerHTML = toStandardTime(militaryTime);
+    document.getElementById('date').innerHTML = day + ", " + month + " " + date + " " + year;
 
-    var timeout = setTimeout(getTime, 500);
+    let timeout = setTimeout(getTime, 500);
 }
 
 function checkTime(i){
