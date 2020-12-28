@@ -1,14 +1,14 @@
 {% extends "tickets/base.html" %}
 {% block content %}
-    {% for ticket in timedTickets %}
+    {% for ticket in tickets %}
         <div class="card card-body mt-3 timed-ticket">
-            <h4 class="text-center card-title">{{ ticket.customer }} - {{ ticket.timeOut }}</h4>
+            <h4 class="text-center card-title"><small class="text-muted">no.{{ ticket.ticketID }}</small> {{ ticket.customer.firstName }} {{ ticket.customer.lastName }} - {{ ticket.timeDue|date:"n/j, h:i a" }}</h4>
             <p class="card-text divider-new mt-2 mb-2">{{ ticket.boat.year}} {{ ticket.boat.manufacturer}} {{ ticket.boat.model}} - Slip {{ ticket.boat.slip}}</p>
             <ul class="form-check list-group-flush">
-                {% for item in ticket.items %}
+                {% for item in ticket.ticketItems %}
                     <li class="list-group-item">
                         <input type="checkbox", class="form-check-input">
-                        <label class="form-check-label card-text">{{ item }}</label>
+                        <label class="form-check-label card-text">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
                     </li>
                 {% endfor %}
             </ul>

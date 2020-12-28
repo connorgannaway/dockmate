@@ -15,6 +15,7 @@ class Customer(models.Model):
 class Boat(models.Model):
     manufacturer = models.CharField(max_length=25)
     model = models.CharField(max_length=25)
+    year = models.CharField(max_length=4)
     slip = models.CharField(max_length=5)
     owner = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
@@ -28,14 +29,14 @@ class Ticket(models.Model):
     timeDue = models.DateTimeField()
     completed = models.BooleanField()
 
-    def __str__(self):
-        return self.customer + ' ' + self.timeDue
+    #def __str__(self):
+        #return self.customer
 
 class TicketItem(models.Model):
     item = models.CharField(max_length=25)
-    description = models.TextField()
+    description = models.TextField(blank="true")
     completed = models.BooleanField()
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.item + ' ' + self.ticket
+    #def __str__(self):
+        #return self.item
