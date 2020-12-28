@@ -2,18 +2,18 @@ const months = ['January','February','March','April','May','June','July','August
 const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 function getTime() {
-    let today = new Date();
-    let hours = today.getHours();
-    let minutes = today.getMinutes();
-    let seconds = today.getSeconds();
-    let date = today.getDate();
-    let day = weekdays[today.getDay()];
-    let month = months[today.getMonth()];
-    let year = today.getFullYear();
+    var today = new Date();
+    var hours = today.getHours();
+    var minutes = today.getMinutes();
+    var seconds = today.getSeconds();
+    var date = today.getDate();
+    var day = weekdays[today.getDay()];
+    var month = months[today.getMonth()];
+    var year = today.getFullYear();
     minutes = checkTime(minutes);
     seconds = checkTime(seconds);
 
-    let militaryTime = hours + ":" + minutes + ":" + seconds;
+    var militaryTime = hours + ":" + minutes + ":" + seconds;
     document.getElementById('time').innerHTML = toStandardTime(militaryTime);
     document.getElementById('date').innerHTML = day + ", " + month + " " + date + " " + year;
 

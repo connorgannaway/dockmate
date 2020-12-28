@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--bootstrap4 stylesheet-->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!--mdbootstrap-->
+    <link rel="stylesheet" href="{% static 'vendor/mdbootstrap/css/mdb.min.css' %}">
+    <!--fontawesome icons-->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesomeicons/css/all.min.css' %}">
+    <!--main stylesheet-->
+    <link rel="stylesheet" href="{% static 'users.css' %}">
+
+    <title>Register - Dockmate</title>
+</head>
+<body>
+    <div class="container aqua">
+        <div class="center">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            {% load crispy_forms_tags %}
+            <div class="card card-body btn-outline-primary">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Sign up</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-primary" type="submit" data-mdb-ripple-color="light">Submit</button>
+                    </div>
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted">Wrong Page? <a href="login" class="ml-1">Log In.</a></small>
+                </div>
+            </div>     
+        </div>
+    </div>
+</body>
+
+<!--jquery script-->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<!--popper.js script -->
+<script src="{% static 'vendor/popper.js/popper.min.js' %}"></script>
+<!--bootstrap4 javascript-->
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--mdb script-->
+<script src="{% static 'vendor/mdbootstrap/js/mdb.min.js' %}"></script>
+<!--fontawesome script-->
+<script src="{% static 'vendor/fontawesomeicons/js/all.min.js' %}"></script>
+
+</html>
