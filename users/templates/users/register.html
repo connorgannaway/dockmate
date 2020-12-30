@@ -17,7 +17,7 @@
     <title>Register - Dockmate</title>
 </head>
 <body>
-    <div class="container aqua">
+    <div class="container aqua" id="registerBox">
         <div class="center">
             {% if messages %}
                 {% for message in messages %}
@@ -37,7 +37,7 @@
                     </div>
                 </form>
                 <div class="border-top pt-3">
-                    <small class="text-muted">Wrong Page? <a href="login" class="ml-1">Log In.</a></small>
+                    <small class="text-muted">Wrong Page? <a href="{% url 'login' %}" class="ml-1">Log In.</a></small>
                 </div>
             </div>     
         </div>

@@ -1,11 +1,35 @@
 from django.shortcuts import render
 from .models import *
-# Create your views here.
-
-
-
+from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
+from django.utils import timezone
 
 def home(request):
+    context = {
+        'tickets': getCurrentTickets(),
+        'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
+        'title':'Home'
+    }
+    return  render(request, 'tickets/home.html', context)
+
+
+def getCurrentUsers():
+    userIds = []
+    current_sessions = Session.objects.filter(expire_date__gte=timezone.now())
+    for i in current_sessions:
+        id = i.get_decoded().get('_auth_user_id', None)
+        userIds.append(id)
+    return User.objects.filter(id__in=userIds)
+
+def getUsernamesFromIDs(queryset):
+    names = []
+    for i in queryset:
+        name = i.username
+        names.append(name)
+    return names
+
+
+def getCurrentTickets():
     Tickets = []
     t = Ticket.objects.filter(completed=False).order_by('timeDue')
     for i in t:
@@ -23,7 +47,6 @@ def home(request):
 
         Ticketitems = i.ticketitem_set.all()
         
-
         temp = {
             "ticketID":TicketID,
             "timeDue":TimeDue,
@@ -40,10 +63,4 @@ def home(request):
             "ticketItems":Ticketitems
         }
         Tickets.append(temp)
-    
-    
-    context = {
-        'tickets': Tickets,
-        'title':'Home'
-    }
-    return  render(request, 'tickets/home.html', context)
+    return Tickets

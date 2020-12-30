@@ -2,10 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegistrationForm
 
-# Create your views here.
-def login(request):
-    return render(request, "users/login.html")
-
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)

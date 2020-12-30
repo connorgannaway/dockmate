@@ -87,7 +87,12 @@
           
           <!--page body-->
           <div id="content" class="ml-3 mr-3">
-              {% block content %}{% endblock %}
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+              {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
           </div>
 
           <div id="info" class="ml-3 mr-3">
@@ -95,6 +100,7 @@
               <h4 class="card-title text-center mb-0" id="time"></h4>
               <p class="card-text text-center mb-0" id="date"></p>
             </div>
+            {% block activeusers %}{% endblock %}
           </div>
 
         </div>
