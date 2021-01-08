@@ -43,7 +43,7 @@
                 <i class="fas fa-user"></i> Profile </a>
               <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
                 <a class="dropdown-item waves-effect waves-light" href="#">My Account</a>
-                <a class="dropdown-item waves-effect waves-light" href="#">Log Out</a>
+                <a class="dropdown-item waves-effect waves-light" href="{% url 'logout' %}">Log Out</a>
               </div>
             </li>
           </ul>
@@ -62,6 +62,9 @@
                 <div class="container justify-content-center">
                   <p>Quick Actions</p>
                 </div>
+                <li>
+                  <a class="waves-effect waves-light" href="#">Home</a>
+                </li>
                 <li>
                   <a href="#ticketsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
                   <ul class="collapse" id="ticketsSubmenu">

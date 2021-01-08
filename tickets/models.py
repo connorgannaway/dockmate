@@ -10,7 +10,7 @@ class Customer(models.Model):
     dateAdded = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.firstName + ' ' + self.lastName
+        return f"{self.firstName} {self.lastName}"
 
 class Boat(models.Model):
     manufacturer = models.CharField(max_length=25)
@@ -29,8 +29,8 @@ class Ticket(models.Model):
     timeDue = models.DateTimeField()
     completed = models.BooleanField()
 
-    #def __str__(self):
-        #return self.customer
+    def __str__(self):
+        return f"{self.id} - {self.customer.firstName} {self.customer.lastName}"
 
 class TicketItem(models.Model):
     item = models.CharField(max_length=25)
@@ -38,5 +38,5 @@ class TicketItem(models.Model):
     completed = models.BooleanField()
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
 
-    #def __str__(self):
-        #return self.item
+    def __str__(self):
+        return f"{self.item}"
