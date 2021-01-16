@@ -3,7 +3,9 @@ from .models import *
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def home(request):
     context = {
         'tickets': getCurrentTickets(),
@@ -11,6 +13,9 @@ def home(request):
         'title':'Home'
     }
     return  render(request, 'tickets/home.html', context)
+
+def base(request):
+    return render(request, 'tickets/base.html')
 
 
 def getCurrentUsers():

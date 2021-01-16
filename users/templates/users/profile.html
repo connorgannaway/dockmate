@@ -1,0 +1,27 @@
+{% extends "tickets/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card mt-3 ml-3">
+    <div class="media p-3">
+        <img class="rounded-circle account-img" src="{{ user.profile.picture.url }}" style="width: 150px; height: 150px">
+        <div class="card-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update Profile</legend>
+                {{ profileform|crispy }}
+                {{ userform|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-primary" type="submit" data-mdb-ripple-color="light">Update</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
+
