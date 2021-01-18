@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+# from django.views.generic import DetailView
+
+
+# VIEWS
 
 @login_required
 def home(request):
@@ -17,6 +21,9 @@ def home(request):
 def base(request):
     return render(request, 'tickets/base.html')
 
+
+
+# SUPPLEMENTAL
 
 def getCurrentUsers():
     userIds = []

@@ -7,7 +7,7 @@
             <ul class="form-check list-group-flush ">
                 {% for item in ticket.ticketItems %}
                     <li class="list-group-item pt-2 pb-2">
-                        <input type="checkbox", class="form-check-input">
+                        <input type="checkbox" class="form-check-input">
                         <label class="form-check-label card-text">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
                     </li>
                 {% endfor %}

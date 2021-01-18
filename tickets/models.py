@@ -35,7 +35,7 @@ class Ticket(models.Model):
 class TicketItem(models.Model):
     item = models.CharField(max_length=25)
     description = models.TextField(blank="true")
-    completed = models.BooleanField()
+    completed = models.BooleanField(default=False)
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
 
     def __str__(self):
