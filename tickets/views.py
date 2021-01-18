@@ -38,34 +38,20 @@ def getCurrentTickets():
     Tickets = []
     t = Ticket.objects.filter(completed=False).order_by('timeDue')
     for i in t:
-        #ticket info
-        TicketID = i.id
-        TimeDue = i.timeDue
-        #boat info
-        Manufacturer = i.boat.manufacturer
-        Model = i.boat.model
-        Year = i.boat.year
-        Slip = i.boat.slip
-        #customer info
-        FirstName = i.customer.firstName
-        LastName = i.customer.lastName
-
-        Ticketitems = i.ticketitem_set.all()
-        
         temp = {
-            "ticketID":TicketID,
-            "timeDue":TimeDue,
+            "ticketID":i.id,
+            "timeDue":i.timeDue,
             "boat":{
-                "manufacturer":Manufacturer,
-                "model":Model,
-                "year":Year,
-                "slip":Slip,
+                "manufacturer":i.boat.manufacturer,
+                "model":i.boat.model,
+                "year":i.boat.year,
+                "slip":i.boat.slip,
             },
             "customer":{
-                "firstName":FirstName,
-                "lastName":LastName
+                "firstName":i.customer.firstName,
+                "lastName":i.customer.lastName
             },
-            "ticketItems":Ticketitems
+            "ticketItems":i.ticketitem_set.all()
         }
         Tickets.append(temp)
     return Tickets

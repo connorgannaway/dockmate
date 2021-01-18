@@ -1,7 +1,7 @@
 {% extends "tickets/base.html" %}
 {% block content %}
     {% for ticket in tickets %}
-        <div class="card card-body mt-3 mb-3 pt-2 pb-2 timed-ticket">
+        <div class="card card-body mb-3 pt-2 pb-2 timed-ticket">
             <h4 class="text-center card-title pb-0 mb-0 pt-1"><small class="text-muted">no.{{ ticket.ticketID }}</small> {{ ticket.customer.firstName }} {{ ticket.customer.lastName }} - {{ ticket.timeDue|date:"n/j, h:i a" }}</h4>
             <p class="card-text divider-new mt-1 mb-0">{{ ticket.boat.year}} {{ ticket.boat.manufacturer}} {{ ticket.boat.model}} - Slip {{ ticket.boat.slip}}</p>
             <ul class="form-check list-group-flush ">
