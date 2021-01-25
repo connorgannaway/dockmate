@@ -1,0 +1,24 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+    {% for customer in customers %}
+        <div class="card card-body mb-3 pt-2 pb-2 timed-ticket">
+            <a href="{% url 'update-customer' customer.id %}"><h4 class="text-center card-title pb-0 mb-0 pt-1">{{ customer.firstName }} {{ customer.lastName }}</h4></a>
+            <p class="card-text mt-1 mb-0">Email: {{ customer.email }}</p>
+            <p class="card-text mt-1 mb-0">Phone: {{ customer.phone }}</p>
+            <p class="card-text mt-1 mb-0">Active: {{ customer.active }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block activeusers %}
+    <div class="card card-body mt-3">
+        <h4 class="text-center">Active Users</h4>
+        <ul class="list-group-flush">
+            {% for name in currentUsers %}
+                <li class="list-group-item pt-2 pb-2">
+                    <label class="card-text text-center">{{name}}</label>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

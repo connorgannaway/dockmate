@@ -7,8 +7,11 @@
             <ul class="form-check list-group-flush ">
                 {% for item in ticket.ticketItems %}
                     <li class="list-group-item pt-2 pb-2">
-                        <input type="checkbox" class="form-check-input">
-                        <label class="form-check-label card-text">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
+                        {% if item.completed == 0 %}
+                            <label class="form-check-label card-text text-danger">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
+                        {% else %}
+                            <label class="form-check-label card-text text-success">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>

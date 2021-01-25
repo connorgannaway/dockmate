@@ -1,3 +1,4 @@
+from os import device_encoding, truncate
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -8,6 +9,7 @@ class Customer(models.Model):
     email = models.EmailField()
     phone = models.PositiveIntegerField(default=0)
     dateAdded = models.DateTimeField(default=timezone.now)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.firstName} {self.lastName}"
@@ -18,6 +20,7 @@ class Boat(models.Model):
     year = models.CharField(max_length=4)
     slip = models.CharField(max_length=5)
     owner = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.slip

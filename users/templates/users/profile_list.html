@@ -1,0 +1,23 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+    {% for e in employees %}
+        <div class="card card-body mb-3 pt-2 pb-2 timed-ticket">
+            <img class="rounded-circle account-img" src="{{ e.picture.url }}" style="width: 150px; height: 150px">
+            <h4 class="text-center card-title pb-0 mb-0 pt-1">{{ e.user.username }}</h4>
+            <p class="card-text mt-1 mb-0">Email: {{ e.user.email }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block activeusers %}
+    <div class="card card-body mt-3">
+        <h4 class="text-center">Active Users</h4>
+        <ul class="list-group-flush">
+            {% for name in currentUsers %}
+                <li class="list-group-item pt-2 pb-2">
+                    <label class="card-text text-center">{{name}}</label>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

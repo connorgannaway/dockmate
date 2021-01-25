@@ -4,7 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-# from django.views.generic import DetailView
+from django.views.generic import CreateView, ListView, UpdateView
+from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin as LRM
+
 
 
 # VIEWS
@@ -21,6 +24,43 @@ def home(request):
 def base(request):
     return render(request, 'tickets/base.html')
 
+class CreateCustomer(LRM, CreateView):
+    model = Customer
+    fields = ['firstName', 'lastName', 'email', 'phone']
+    
+    def get_success_url(self):
+        return reverse('list-customers')
+
+class UpdateCustomer(LRM, UpdateView):
+    model = Customer
+    fields = ['firstName', 'lastName', 'email', 'phone', 'active']
+    
+    def get_success_url(self):
+        return reverse('list-customers')
+
+class ListCustomers(LRM, ListView):
+    model = Customer
+    context_object_name ='customers'
+    ordering = ['-active','lastName']
+
+class CreateBoat(LRM, CreateView):
+    model = Boat
+    fields = ['manufacturer', 'model', 'year', 'slip', 'owner']
+
+    def get_success_url(self):
+        return reverse('list-boats')
+
+class UpdateBoat(LRM, UpdateView):
+    model = Boat
+    fields = ['manufacturer', 'model', 'year', 'slip', 'owner', 'active']
+
+    def get_success_url(self):
+        return reverse('list-boats')
+
+class ListBoats(LRM, ListView):
+    model = Boat
+    context_object_name = 'boats'
+    ordering = ['-active','slip']
 
 
 # SUPPLEMENTAL

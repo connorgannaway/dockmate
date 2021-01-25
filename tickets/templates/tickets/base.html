@@ -69,7 +69,11 @@
                   <p>Quick Actions</p>
                 </div>
                 <li>
-                  <a class="waves-effect waves-light" href="#">Home</a>
+                  {% if user.is_authenticated %}
+                    <a class="waves-effect waves-light" href="{% url 'tickets-home' %}">Home</a>
+                  {%else%}
+                    <a class="waves-effect waves-light" href="{% url 'base' %}">Home</a>
+                  {%endif%}
                 </li>
                 <li>
                   <a href="#ticketsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
@@ -83,13 +87,29 @@
                   </ul>
                 </li>
                 <li>
-                  <a class="waves-effect waves-light" href="#">View Boats</a>
+                  <a href="#customerSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Customers</a>
+                  <ul class="collapse" id="customerSubmenu">
+                    <li>
+                      <a class="waves-effect waves-light" href="{% url 'create-customer' %}">Create Customer</a>
+                    </li>
+                    <li>
+                      <a class="waves-effect waves-light" href="{% url 'list-customers' %}">View Customers</a>
+                    </li>
+                  </ul>
                 </li>
                 <li>
-                  <a class="waves-effect waves-light" href="#">View Customers</a>
+                  <a href="#boatSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Boats</a>
+                  <ul class="collapse" id="boatSubmenu">
+                    <li>
+                      <a class="waves-effect waves-light" href="{% url 'create-boat' %}">Create Boat</a>
+                    </li>
+                    <li>
+                      <a class="waves-effect waves-light" href="{% url 'list-boats' %}">View Boats</a>
+                    </li>
+                  </ul>
                 </li>
                 <li>
-                  <a class="waves-effect waves-light" href="#">View Employees</a>
+                  <a class="waves-effect waves-light" href="{% url 'list-employees' %}">View Employees</a>
                 </li>
               </ul>
           </nav>

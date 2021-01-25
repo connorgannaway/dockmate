@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
+from .models import Profile
+from django.contrib.auth.mixins import LoginRequiredMixin as LRM
 
 
 def register(request):
@@ -38,3 +41,8 @@ def profile(request):
         'title':'Profile'
     }
     return render(request, 'users/profile.html', context)
+
+
+class ListEmployees(LRM, ListView):
+    model = Profile
+    context_object_name = 'employees'
