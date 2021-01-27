@@ -79,10 +79,10 @@
                   <a href="#ticketsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
                   <ul class="collapse" id="ticketsSubmenu">
                     <li>
-                      <a class="waves-effect waves-light" href="#">Create Ticket</a>
+                      <a class="waves-effect waves-light" href="{%url 'create-ticket'%}">Create Ticket</a>
                     </li>
                     <li>
-                      <a class="waves-effect waves-light" href="#">View Tickets</a>
+                      <a class="waves-effect waves-light" href="{%url 'list-tickets'%}">View Tickets</a>
                     </li>
                   </ul>
                 </li>
@@ -125,7 +125,7 @@
           </div>
 
           <div id="info" class="ml-3 mr-3">
-            <div class="card card-body mt-3 justify-content-center" id="timecard">
+            <div class="card card-body mt-3 mb-3 justify-content-center" id="timecard">
               <h4 class="card-title text-center mb-0" id="time"></h4>
               <p class="card-text text-center mb-0" id="date"></p>
             </div>

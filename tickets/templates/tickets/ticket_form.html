@@ -1,0 +1,33 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+    <div class="card card-body mb-3 pt-2 pb-2 timed-ticket">
+        {% load crispy_forms_tags %}
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Ticket</legend>
+                {{ ticketform|crispy }}
+                <hr class="my-4">
+                {{ itemform|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-primary" type="submit" data-mdb-ripple-color="light">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block activeusers %}
+    <div class="card card-body mt-3">
+        <h4 class="text-center">Active Users</h4>
+        <ul class="list-group-flush">
+            {% for name in currentUsers %}
+                <li class="list-group-item pt-2 pb-2">
+                    <label class="card-text text-center">{{name}}</label>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
