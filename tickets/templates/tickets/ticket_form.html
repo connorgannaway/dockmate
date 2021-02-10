@@ -1,16 +1,30 @@
 {% extends "tickets/base.html" %}
 {% block content %}
+
     <div class="card card-body mb-3 pt-2 pb-2 timed-ticket">
         {% load crispy_forms_tags %}
-        <form method="POST">
+        <form id="form" method="POST" action="">
             {% csrf_token %}
-            <fieldset class="form-group">
+            <fieldset class="">
                 <legend class="border-bottom mb-4">Ticket</legend>
                 {{ ticketform|crispy }}
+                <small class="mt-0">YYYY-MM-DD HH:mm:ss</small>
                 <hr class="my-4">
-                {{ itemform|crispy }}
+                {% for itemform in itemforms.forms %}
+                    <div class="link-formset">
+                        {{ itemform|crispy }}
+                    </div>
+                {% endfor %}
             </fieldset>
-            <div class="form-group">
+            
+            {{ itemforms.management_form }}
+            <script type="text/javascript">
+                $('.link-formset').formset({
+                    addText: 'Add Item',
+                    deleteText: 'Remove This Item'
+                });
+            </script>
+            <div class="">
                 <button class="btn btn-outline-primary" type="submit" data-mdb-ripple-color="light">Submit</button>
             </div>
         </form>

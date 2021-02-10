@@ -13,5 +13,5 @@ urlpatterns = [
     path('boats/new/', views.CreateBoat.as_view(), name='create-boat'),
     path('boats/<int:pk>', views.UpdateBoat.as_view(), name='update-boat'),
     path('tickets/', views.ListTickets, name='list-tickets'),
-    path('tickets/new/', views.CreateTicket, name='create-ticket')
+    path('tickets/new/', views.CreateTicket.as_view(), name='create-ticket')
 ]

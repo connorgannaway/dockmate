@@ -13,6 +13,27 @@
     <link rel="stylesheet" href="{% static 'vendor/fontawesomeicons/css/all.min.css' %}">
     <!--main stylesheet-->
     <link rel="stylesheet" href="{% static 'tickets.css' %}">
+    <!-- Tempus Dominus Bootstrap 4 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
+
+    <!--jquery script-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <!--popper.js script -->
+    <script src="{% static 'vendor/popper.js/popper.min.js' %}"></script>
+    <!--bootstrap4 javascript-->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!--mdb script-->
+    <script src="{% static 'vendor/mdbootstrap/js/mdb.min.js' %}"></script>
+    <!--fontawesome script-->
+    <script src="{% static 'vendor/fontawesomeicons/js/all.min.js' %}"></script>
+
+    <script src="{% static 'vendor/moment/moment.js' %}"></script>
+    <!--main javascript-->
+    <script src="{% static 'main.js' %}"></script>
+    <script src="{% static 'jquery.formset.js' %}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+
     {% if title %}
       <title>{{ title }} - Dockmate</title>
     {% else %}
@@ -131,24 +152,12 @@
             </div>
             {% block activeusers %}{% endblock %}
           </div>
-
         </div>
     </section>
 
 
 </body>
 
-<!--jquery script-->
-<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<!--popper.js script -->
-<script src="{% static 'vendor/popper.js/popper.min.js' %}"></script>
-<!--bootstrap4 javascript-->
-<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-<!--mdb script-->
-<script src="{% static 'vendor/mdbootstrap/js/mdb.min.js' %}"></script>
-<!--fontawesome script-->
-<script src="{% static 'vendor/fontawesomeicons/js/all.min.js' %}"></script>
-<!--main javascript-->
-<script src="{% static 'main.js' %}"></script>
+
 
 </html>

@@ -1,14 +1,17 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
-from extra_views.advanced import InlineFormSet
 from .models import *
 from .forms import *
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin as LRM
+from django.forms import formset_factory
+from django.contrib import messages
 
 
 
@@ -35,19 +38,64 @@ def ListTickets(request):
     }
     return render(request, 'tickets/ticket_list.html', context)
 
-@login_required
-def CreateTicket(request):
-    ticketform = TicketForm(instance=Ticket())
-    itemform = TicketItemForm(instance=TicketItem())
 
-    context = {
-        'ticketform' : ticketform,
-        'itemform' : itemform,
-        'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
-        'title' : 'Ticket Creation'
-    }
+class CreateTicket(LRM, View):
+    template_name = 'tickets/ticket_form.html'
+    itemFormset = formset_factory(TicketItemForm)
 
-    return render(request, 'tickets/ticket_form.html', context)
+    def get(self, request, *args, **kwargs):
+        context = {
+            'ticketform' : TicketForm(instance=Ticket()),
+            'itemforms' : self.itemFormset()
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        
+        data = self.request.POST.copy()
+        print(data)
+        nextTicketID = Ticket.objects.all().count() + 1
+
+        nextTicket = True
+        formcount = 0
+        while nextTicket:
+            print(f'itr-{formcount}')
+            if data.get(f'form-{formcount}-item'):
+                data.appendlist(f'form-{formcount}-ticket', f'{nextTicketID}')
+                formcount += 1
+            else:
+                nextTicket = False
+    
+        self.request.POST = data
+        itemFormset = self.itemFormset(self.request.POST)
+        ticketform = TicketForm(self.request.POST)
+        if ticketform.is_valid() and itemFormset.is_valid():
+            ticketform.save()
+           # for form in itemFormset:
+                #form.save()
+            self.createTicketItem(self.request, formcount)
+            return HttpResponseRedirect(reverse("list-tickets"))
+        else:
+            messages.error(self.request, "Error creating ticket... (Maybe check the date field?)")
+            context = {
+            'ticketform' : TicketForm(instance=Ticket()),
+            'itemforms' : self.itemFormset()
+        }
+        return render(request, self.template_name, context)
+
+    def createTicketItem(self, request, formcount):
+        for i in range(formcount):
+            item = TicketItem(
+                item=self.request.POST.get(f'form-{i}-item'),
+                description=self.request.POST.get(f'form-{i}-description'),
+                ticket=Ticket.objects.last()
+                )
+            item.save()
+            
+        
+        
+
 
 class CreateCustomer(LRM, CreateView):
     model = Customer

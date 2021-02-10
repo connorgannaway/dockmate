@@ -30,7 +30,7 @@ class Ticket(models.Model):
     boat = models.ForeignKey(Boat, on_delete=models.CASCADE)
     timeCreated = models.DateTimeField(default=timezone.now)
     timeDue = models.DateTimeField()
-    completed = models.BooleanField()
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.id} - {self.customer.firstName} {self.customer.lastName}"
