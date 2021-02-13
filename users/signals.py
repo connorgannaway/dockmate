@@ -5,23 +5,16 @@ from .models import Profile
 import os
 from dockmate.settings import BASE_DIR
 
+#signals watch for events anywhere in the app, and then act on them
+#event is defined in 1st var of @reciever
+
+#when user registers, entry to User model is created, but not Profile model.
 @receiver(post_save, sender=User)
 def createProfileFromUser(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+#save the created profile from above
 @receiver(post_save, sender=User)
 def saveProfile(sender, instance, **kwargs):
     instance.profile.save()
-
-'''
-@receiver(pre_save, sender=Profile)
-def removeOldProfilePicture(sender, instance, **kwargs):
-    oldpic = sender.objects.get(id=instance.id).picture.url
-    if oldpic == '/media/default.jpg':
-        return False
-    
-    newpic = instance.picture.url
-    if oldpic != newpic:
-        print(BASE_DIR)
-        os.remove(os.path.join(ROOT_DIR, oldpic))'''

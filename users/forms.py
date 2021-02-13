@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
+#Creating html forms.
+# Each class interacts with a model. Fields for a form are chosen in 'fields'
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=False)

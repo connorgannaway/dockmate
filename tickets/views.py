@@ -17,32 +17,36 @@ from django.contrib import messages
 
 # VIEWS
 
+#main view that displays unfinished tickets.
 @login_required
 def home(request):
     context = {
-        'tickets': getCurrentTickets(),
+        'tickets': getTickets(completed=False),
         'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
         'title':'Home'
     }
     return  render(request, 'tickets/home.html', context)
 
+#displays view with no information for non-logged-in users
 def base(request):
     return render(request, 'tickets/base.html')
 
+#view that lists finished and unfinished tickets.
 @login_required
 def ListTickets(request):
     context = {
-        'current': getCurrentTickets(),
-        'complete': getCompleteTickets(),
+        'current': getTickets(completed=False),
+        'complete': getTickets(completed=True),
         'title': 'Tickets'
     }
     return render(request, 'tickets/ticket_list.html', context)
 
-
+#view for creating tickets
 class CreateTicket(LRM, View):
     template_name = 'tickets/ticket_form.html'
-    itemFormset = formset_factory(TicketItemForm)
+    itemFormset = formset_factory(TicketItemForm) #formset factory handles multiple instances of forms
 
+    #displays blank forms
     def get(self, request, *args, **kwargs):
         context = {
             'ticketform' : TicketForm(instance=Ticket()),
@@ -51,14 +55,15 @@ class CreateTicket(LRM, View):
 
         return render(request, self.template_name, context)
 
+    #takes form data, validates, and saves
     def post(self, request, *args, **kwargs):
-        
+        #copying data to add ForeignKey relationships
         data = self.request.POST.copy()
         print(data)
         nextTicketID = Ticket.objects.all().count() + 1
-
         nextTicket = True
         formcount = 0
+        #looping through forms in post to add foreignkey field
         while nextTicket:
             print(f'itr-{formcount}')
             if data.get(f'form-{formcount}-item'):
@@ -66,16 +71,16 @@ class CreateTicket(LRM, View):
                 formcount += 1
             else:
                 nextTicket = False
-    
         self.request.POST = data
+        #creating form objects from POST data and validating
         itemFormset = self.itemFormset(self.request.POST)
         ticketform = TicketForm(self.request.POST)
         if ticketform.is_valid() and itemFormset.is_valid():
             ticketform.save()
-           # for form in itemFormset:
-                #form.save()
             self.createTicketItem(self.request, formcount)
             return HttpResponseRedirect(reverse("list-tickets"))
+        
+        #if forms aren't valid displays page like 'get' request 
         else:
             messages.error(self.request, "Error creating ticket... (Maybe check the date field?)")
             context = {
@@ -84,6 +89,8 @@ class CreateTicket(LRM, View):
         }
         return render(request, self.template_name, context)
 
+    #creates and saves ticketitem objects in the database
+    #from the form info in the POST request.
     def createTicketItem(self, request, formcount):
         for i in range(formcount):
             item = TicketItem(
@@ -96,7 +103,7 @@ class CreateTicket(LRM, View):
         
         
 
-
+#view for creating customers
 class CreateCustomer(LRM, CreateView):
     model = Customer
     fields = ['firstName', 'lastName', 'email', 'phone']
@@ -104,6 +111,7 @@ class CreateCustomer(LRM, CreateView):
     def get_success_url(self):
         return reverse('list-customers')
 
+#view that displays pre-filled form for updating customers
 class UpdateCustomer(LRM, UpdateView):
     model = Customer
     fields = ['firstName', 'lastName', 'email', 'phone', 'active']
@@ -111,11 +119,13 @@ class UpdateCustomer(LRM, UpdateView):
     def get_success_url(self):
         return reverse('list-customers')
 
+#view that lists all customers in database
 class ListCustomers(LRM, ListView):
     model = Customer
     context_object_name ='customers'
     ordering = ['-active','lastName']
 
+#view for creating new boats
 class CreateBoat(LRM, CreateView):
     model = Boat
     fields = ['manufacturer', 'model', 'year', 'slip', 'owner']
@@ -123,6 +133,7 @@ class CreateBoat(LRM, CreateView):
     def get_success_url(self):
         return reverse('list-boats')
 
+#view that displays prefilled form for updating boats
 class UpdateBoat(LRM, UpdateView):
     model = Boat
     fields = ['manufacturer', 'model', 'year', 'slip', 'owner', 'active']
@@ -130,6 +141,7 @@ class UpdateBoat(LRM, UpdateView):
     def get_success_url(self):
         return reverse('list-boats')
 
+#View that lists all boat objects in the database
 class ListBoats(LRM, ListView):
     model = Boat
     context_object_name = 'boats'
@@ -138,6 +150,7 @@ class ListBoats(LRM, ListView):
 
 # SUPPLEMENTAL
 
+#returns queryset of the currently logged in users
 def getCurrentUsers():
     userIds = []
     current_sessions = Session.objects.filter(expire_date__gte=timezone.now())
@@ -146,6 +159,7 @@ def getCurrentUsers():
         userIds.append(id)
     return User.objects.filter(id__in=userIds)
 
+#given a queryset of users, pulls and returns the username
 def getUsernamesFromIDs(queryset):
     names = []
     for i in queryset:
@@ -153,32 +167,15 @@ def getUsernamesFromIDs(queryset):
         names.append(name)
     return names
 
-
-def getCurrentTickets():
+#pulls tickets from database based on completion
+#formats as and returns a list of dicts
+def getTickets(completed):
     Tickets = []
-    t = Ticket.objects.filter(completed=False).order_by('timeDue')
-    for i in t:
-        temp = {
-            "ticketID":i.id,
-            "timeDue":i.timeDue,
-            "boat":{
-                "manufacturer":i.boat.manufacturer,
-                "model":i.boat.model,
-                "year":i.boat.year,
-                "slip":i.boat.slip,
-            },
-            "customer":{
-                "firstName":i.customer.firstName,
-                "lastName":i.customer.lastName
-            },
-            "ticketItems":i.ticketitem_set.all()
-        }
-        Tickets.append(temp)
-    return Tickets
-
-def getCompleteTickets():
-    Tickets = []
-    t = Ticket.objects.filter(completed=True).order_by('-timeDue')
+    if completed==True:
+        t = Ticket.objects.filter(completed=True).order_by('-timeDue')
+    else:
+        t = Ticket.objects.filter(completed=False).order_by('timeDue')
+        
     for i in t:
         temp = {
             "ticketID":i.id,

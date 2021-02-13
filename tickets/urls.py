@@ -3,6 +3,8 @@
 from django.urls import path
 from . import views
 
+#list of urls. format: url path, view class/function from views.py file, name
+
 urlpatterns = [
     path('', views.base, name='base'),
     path('home/', views.home, name='tickets-home'),

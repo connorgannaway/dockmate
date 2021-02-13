@@ -3,11 +3,15 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+#Model classes are tables objects in a database.
+#each variable is a column and its datatype.
+#__str__ method defines the name of a object (row) in a database table
+
 class Customer(models.Model):
     firstName = models.CharField(max_length=25)
     lastName = models.CharField(max_length=25)
     email = models.EmailField()
-    phone = models.PositiveIntegerField(default=0)
+    phone = models.PositiveIntegerField(default=0, max_length=12)
     dateAdded = models.DateTimeField(default=timezone.now)
     active = models.BooleanField(default=True)
 

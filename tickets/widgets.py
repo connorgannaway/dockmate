@@ -1,5 +1,8 @@
 from django.forms import DateTimeInput
 
+#widget items to be used throughout the application.
+#widgets, their respective html templates, and backend are here.
+
 class DateTimeField(DateTimeInput):
     template_name = 'tickets/datetimefield.html'
 

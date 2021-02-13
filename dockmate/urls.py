@@ -22,8 +22,9 @@ from tickets import views as ticketviews
 from django.conf import settings
 from django.conf.urls.static import static
 
+#list of urls. format: url path, view class/function from views.py file, name
 urlpatterns = [
-    path('', include('tickets.urls')),
+    path('', include('tickets.urls')), #extends this list to tickets/urls.py
     path('admin/', admin.site.urls),
     path('register/', userviews.register, name="register"),
     path('login/', authviews.LoginView.as_view(template_name='users/login.html'), name="login"),
