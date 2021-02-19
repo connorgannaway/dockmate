@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import *
 from .forms import *
 from django.contrib.auth.models import User
@@ -50,7 +50,8 @@ class CreateTicket(LRM, View):
     def get(self, request, *args, **kwargs):
         context = {
             'ticketform' : TicketForm(instance=Ticket()),
-            'itemforms' : self.itemFormset()
+            'itemforms' : self.itemFormset(),
+            'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
         }
 
         return render(request, self.template_name, context)
@@ -85,7 +86,8 @@ class CreateTicket(LRM, View):
             messages.error(self.request, "Error creating ticket... (Maybe check the date field?)")
             context = {
             'ticketform' : TicketForm(instance=Ticket()),
-            'itemforms' : self.itemFormset()
+            'itemforms' : self.itemFormset(),
+            'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
         }
         return render(request, self.template_name, context)
 
@@ -100,7 +102,41 @@ class CreateTicket(LRM, View):
                 )
             item.save()
             
-        
+class ViewTicket(LRM, View):
+    template_name = 'tickets/ticket_view.html'
+    
+    def get(self, request, pk, *args, **kwargs):
+        ticket = get_object_or_404(Ticket, pk=pk)
+        items = ticket.ticketitem_set.all()
+        itemcount = items.count()
+        values = []
+        for i in items:
+            values.append(i.completed)
+        print(values)
+        Formset = formset_factory(TicketItemCompletionForm, max_num=itemcount)
+        formset = Formset(initial=[{'completed':value} for value in values])
+        context = {
+            'ticket' : ticket,
+            'items' : items,
+            'forms' : formset,
+            'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
+            'title' : f'Ticket no.{ticket.id}'
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk, *args, **kwargs):
+        ticket = get_object_or_404(Ticket, pk=pk)
+        print(self.request.POST)
+        formset = formset_factory(TicketItemCompletionForm, self.request.POST)
+        if formset.is_valid():
+            for form in formset:
+                form.save()
+            messages.success('Ticket updated.')
+            return reverse('view-ticket', pk=pk)
+        else:
+            messages.error('Failure updating ticket.')
+            return reverse('view-ticket', pk=pk)
+
         
 
 #view for creating customers

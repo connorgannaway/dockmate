@@ -20,3 +20,9 @@ class TicketItemForm(forms.ModelForm):
         model = TicketItem
         fields = ["item", "description"]
 
+class TicketItemCompletionForm(forms.ModelForm):
+    completed = forms.BooleanField(required=False, label='')
+    class Meta:
+        model = TicketItem
+        fields = ["completed"]
+        

@@ -5,7 +5,9 @@
     </div>
     {% for ticket in current %}
         <div class="card card-body mb-3 pt-2 pb-2 timed-ticket">
-            <h4 class="text-center card-title pb-0 mb-0 pt-1"><small class="text-muted">no.{{ ticket.ticketID }}</small> {{ ticket.customer.firstName }} {{ ticket.customer.lastName }} - {{ ticket.timeDue|date:"n/j, h:i a" }}</h4>
+            <a href="{% url 'view-ticket' ticket.ticketID %}">
+                <h4 class="text-center card-title pb-0 mb-0 pt-1"><small class="text-muted">no.{{ ticket.ticketID }}</small> {{ ticket.customer.firstName }} {{ ticket.customer.lastName }} - {{ ticket.timeDue|date:"n/j, h:i a" }}</h4>
+            </a>
             <p class="card-text divider-new mt-1 mb-0">{{ ticket.boat.year}} {{ ticket.boat.manufacturer}} {{ ticket.boat.model}} - Slip {{ ticket.boat.slip}}</p>
             <ul class="form-check list-group-flush ">
                 {% for item in ticket.ticketItems %}
@@ -28,7 +30,9 @@
     </div>
     {% for ticket in complete %}
         <div class="card card-body mb-3 pt-2 pb-2 timed-ticket">
-            <h4 class="text-center card-title pb-0 mb-0 pt-1"><small class="text-muted">no.{{ ticket.ticketID }}</small> {{ ticket.customer.firstName }} {{ ticket.customer.lastName }} - {{ ticket.timeDue|date:"n/j, h:i a" }}</h4>
+            <a href="{% url 'view-ticket' ticket.ticketID %}">
+                <h4 class="text-center card-title pb-0 mb-0 pt-1"><small class="text-muted">no.{{ ticket.ticketID }}</small> {{ ticket.customer.firstName }} {{ ticket.customer.lastName }} - {{ ticket.timeDue|date:"n/j, h:i a" }}</h4>
+            </a>
             <p class="card-text divider-new mt-1 mb-0">{{ ticket.boat.year}} {{ ticket.boat.manufacturer}} {{ ticket.boat.model}} - Slip {{ ticket.boat.slip}}</p>
             <ul class="form-check list-group-flush ">
                 {% for item in ticket.ticketItems %}

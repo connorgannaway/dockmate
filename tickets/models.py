@@ -11,7 +11,7 @@ class Customer(models.Model):
     firstName = models.CharField(max_length=25)
     lastName = models.CharField(max_length=25)
     email = models.EmailField()
-    phone = models.PositiveIntegerField(default=0, max_length=12)
+    phone = models.PositiveIntegerField(default=0)
     dateAdded = models.DateTimeField(default=timezone.now)
     active = models.BooleanField(default=True)
 
