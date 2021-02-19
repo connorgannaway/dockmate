@@ -20,9 +20,9 @@ class TicketItemForm(forms.ModelForm):
         model = TicketItem
         fields = ["item", "description"]
 
-class TicketItemCompletionForm(forms.ModelForm):
-    completed = forms.BooleanField(required=False, label='')
-    class Meta:
-        model = TicketItem
-        fields = ["completed"]
+class TicketItemCompletionForm(forms.Form):
+    def __init__(self, items=None, *args, **kwargs):
+        super(TicketItemCompletionForm, self).__init__(*args, **kwargs)
+        if items:
+            self.fields['completed'] = forms.ModelMultipleChoiceField(queryset=items, widget=forms.CheckboxSelectMultiple())
         

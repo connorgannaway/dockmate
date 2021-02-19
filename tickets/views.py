@@ -108,17 +108,11 @@ class ViewTicket(LRM, View):
     def get(self, request, pk, *args, **kwargs):
         ticket = get_object_or_404(Ticket, pk=pk)
         items = ticket.ticketitem_set.all()
-        itemcount = items.count()
-        values = []
-        for i in items:
-            values.append(i.completed)
-        print(values)
-        Formset = formset_factory(TicketItemCompletionForm, max_num=itemcount)
-        formset = Formset(initial=[{'completed':value} for value in values])
+        form = TicketItemCompletionForm(items)
         context = {
             'ticket' : ticket,
             'items' : items,
-            'forms' : formset,
+            'form': form,
             'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
             'title' : f'Ticket no.{ticket.id}'
         }
@@ -126,11 +120,13 @@ class ViewTicket(LRM, View):
 
     def post(self, request, pk, *args, **kwargs):
         ticket = get_object_or_404(Ticket, pk=pk)
-        print(self.request.POST)
-        formset = formset_factory(TicketItemCompletionForm, self.request.POST)
-        if formset.is_valid():
-            for form in formset:
-                form.save()
+        items = ticket.ticketitem_set.all()
+        length = items.count()
+        form = TicketItemCompletionForm(items, self.request.POST)
+        if form.is_valid():
+            
+            #implement form saving#############################################    
+
             messages.success('Ticket updated.')
             return reverse('view-ticket', pk=pk)
         else:
