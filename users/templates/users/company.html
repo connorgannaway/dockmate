@@ -1,0 +1,26 @@
+{% extends 'tickets/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="card p-3">
+    <div class="m-3">
+        {% if currentCompany %}
+            <h3 class='card-title'>Current Company: {{currentCompany}}</h3>
+        {% else %}
+            <h3 class='card-title'>Current Company: None</h3>
+        {% endif %}
+        <h6 class='card-subtitle'><a href="{% url 'create-company' %}" class="text-primary">Create Company</a>, or update current below.</h6>
+    </div>
+    <div class="m-3">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update Company</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-primary" type="submit" data-mdb-ripple-color="light">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import CompanyUpdateForm, UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
-from .models import Profile
+from django.views.generic import ListView, View, CreateView
+from .models import Company, Profile
 from django.contrib.auth.mixins import LoginRequiredMixin as LRM
+from django.urls import reverse
 
 #displays register view
 def register(request):
@@ -50,3 +51,52 @@ def profile(request):
 class ListEmployees(LRM, ListView):
     model = Profile
     context_object_name = 'employees'
+
+class CompanyView(LRM, View):
+    template_name = 'users/company.html'
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        if user.profile.company:
+            company = user.profile.company
+        else:
+            company = None
+        
+        context = {
+            'title': 'Company',
+            'currentCompany': company,
+            'form': CompanyUpdateForm()
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        form = CompanyUpdateForm(self.request.POST)
+        if form.is_valid():
+            leave = form.cleaned_data.get('leave')
+            if leave:
+                if self.request.user.profile.company:
+                    self.request.user.profile.company = None
+                    self.request.user.profile.save()
+                    messages.success(self.request, 'Current Company Deleted.')
+            else:
+                company = form.cleaned_data.get('company')
+                key = form.cleaned_data.get('key')
+                if company.key == key:
+                    self.request.user.profile.company = company
+                    self.request.user.profile.save()
+                    messages.success(self.request, 'Company Updated')
+                else:
+                    messages.warning(self.request, 'Incorrect Key. Try again.')
+        else:
+            messages.error(self.request, 'Form error')
+
+        return redirect('company')
+
+class CreateCompany(LRM, CreateView):
+    template_name = 'users/company_form.html'
+    model = Company
+    fields = ['name', 'key']
+
+    def get_success_url(self):
+        messages.success(self.request, 'Company successfully created.')
+        return reverse('company')

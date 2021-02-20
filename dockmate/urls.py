@@ -30,7 +30,9 @@ urlpatterns = [
     path('login/', authviews.LoginView.as_view(template_name='users/login.html'), name="login"),
     path('logout/', authviews.LogoutView.as_view(template_name='users/logout.html'), name="logout"),
     path('profile/', userviews.profile, name="profile"),
-    path('employees/', userviews.ListEmployees.as_view(), name='list-employees')
+    path('employees/', userviews.ListEmployees.as_view(), name='list-employees'),
+    path('company/', userviews.CompanyView.as_view(), name='company'),
+    path('company/new/', userviews.CreateCompany.as_view(), name='create-company')
 ]
 
 if settings.DEBUG:

@@ -1,3 +1,4 @@
+from os import name
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -7,10 +8,19 @@ from PIL import Image
 #__str__ method defines the name of a object (row) in a database table
 
 #profile model is meant to be used as an extension to the User model
-#this is so users can have a profile picture
+#this is so users can have a profile picture and be connected to a company
+
+class Company(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    key = models.CharField(max_length=12, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    company = models.OneToOneField(Company, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
