@@ -25,4 +25,8 @@ class TicketItemCompletionForm(forms.ModelForm):
     class Meta:
         model = TicketItem
         fields = ["completed"]
-        
+
+class TicketCompletionForm(forms.ModelForm):
+    class Meta:
+        model= Ticket
+        fields = ['completed']

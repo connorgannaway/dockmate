@@ -1,7 +1,7 @@
 {% extends "tickets/base.html" %}
 {% block content %}
     <div class="card card-body mb-3 timed-ticket">
-        <h4 class="text-primary text-center align-middle card-title">Current Tickets</h4>
+        <h4 class="font-weight-bold text-primary text-center align-middle card-title">Current Tickets</h4>
     </div>
     {% for ticket in current %}
         <div class="card card-body mb-3 pt-2 pb-2 timed-ticket">
@@ -12,11 +12,7 @@
             <ul class="form-check list-group-flush ">
                 {% for item in ticket.ticketItems %}
                     <li class="list-group-item pt-2 pb-2">
-                        {% if item.completed == 0 %}
-                            <label class="form-check-label card-text text-danger">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
-                        {% else %}
-                            <label class="form-check-label card-text text-success">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
-                        {% endif %}
+                        <label class="form-check-label card-text text-primary">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
                     </li>
                 {% endfor %}
             </ul>
@@ -26,7 +22,7 @@
 
 {% block activeusers %}
     <div class="card card-body mb-3 timed-ticket">
-        <h4 class="text-primary text-center align-middle card-title">Completed Tickets</h4>
+        <h4 class="font-weight-bold text-primary text-center align-middle card-title">Completed Tickets</h4>
     </div>
     {% for ticket in complete %}
         <div class="card card-body mb-3 pt-2 pb-2 timed-ticket">
@@ -37,11 +33,7 @@
             <ul class="form-check list-group-flush ">
                 {% for item in ticket.ticketItems %}
                     <li class="list-group-item pt-2 pb-2">
-                        {% if item.completed == 0 %}
-                            <label class="form-check-label card-text text-danger">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
-                        {% else %}
-                            <label class="form-check-label card-text text-success">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
-                        {% endif %}
+                        <label class="form-check-label card-text text-primary">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
                     </li>
                 {% endfor %}
             </ul>

@@ -5,34 +5,23 @@
         <h4 class="text-center card-title pb-0 mb-0 pt-1"><small class="text-muted">no.{{ ticket.id }}</small> {{ ticket.customer.firstName }} {{ ticket.customer.lastName }} - {{ ticket.timeDue|date:"n/j, h:i a" }}</h4>
         <p class="card-text divider-new mt-1 mb-0">{{ ticket.boat.year}} {{ ticket.boat.manufacturer}} {{ ticket.boat.model}} - Slip {{ ticket.boat.slip}}</p>
         <form method="POST">
-        <div class="row">
-            <div class="col-1">
-                <ul class="form-check list-group-flush ">
-                    {% csrf_token %}
-                    
-                    {% for form in forms %}
-                        <li class="pt-2 pb-2">
-                            {{form}}
-                        </li>
-                    {% endfor %}
-                    
-                </ul>
+        {% csrf_token %}
+        <ul class="form-check list-group-flush ">
+            {% for item in items %}
+                <li class="list-group-item pt-2 pb-2">
+                    <label class="form-check-label card-text text-primary">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
+                </li>
+            {% endfor %}
+        </ul>
+        <hr class='my-3'></hr>
+        <div class='row'>
+            <div class='col-6 d-flex justify-content-center'>
+                {{form|crispy}}
             </div>
-            <div class="col-11">
-                <ul class="form-check list-group-flush ">
-                    {% for item in items %}
-                        <li class="list-group-item pt-2 pb-2">
-                            {% if item.completed == 0 %}
-                                <label class="form-check-label card-text text-danger">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
-                            {% else %}
-                                <label class="form-check-label card-text text-success">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class='col-6 d-flex justify-content-center'>
+                <button class="btn btn-outline-primary" type="submit" data-mdb-ripple-color="light">Update</button>
             </div>
         </div>
-        <button class="btn btn-outline-primary" type="submit" data-mdb-ripple-color="light">Update</button>
         </form>
     </div>
     

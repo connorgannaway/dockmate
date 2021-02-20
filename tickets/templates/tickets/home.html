@@ -9,11 +9,7 @@
             <ul class="form-check list-group-flush ">
                 {% for item in ticket.ticketItems %}
                     <li class="list-group-item pt-2 pb-2">
-                        {% if item.completed == 0 %}
-                            <label class="form-check-label card-text text-danger">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
-                        {% else %}
-                            <label class="form-check-label card-text text-success">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
-                        {% endif %}
+                        <label class="form-check-label card-text text-primary">{{ item.item }} <small class="text-muted">{{ item.description }}</small></label>
                     </li>
                 {% endfor %}
             </ul>
