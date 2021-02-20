@@ -107,18 +107,11 @@ class ViewTicket(LRM, View):
     
     def get(self, request, pk, *args, **kwargs):
         ticket = get_object_or_404(Ticket, pk=pk)
-        items = ticket.ticketitem_set.all()
-        itemcount = items.count()
-        values = []
-        for i in items:
-            values.append(i.completed)
-        print(values)
-        Formset = formset_factory(TicketItemCompletionForm, max_num=itemcount)
-        formset = Formset(initial=[{'completed':value} for value in values])
+
         context = {
             'ticket' : ticket,
-            'items' : items,
-            'forms' : formset,
+            'items' : ticket.ticketitem_set.all(),
+            'form' : TicketCompletionForm(instance=ticket),
             'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
             'title' : f'Ticket no.{ticket.id}'
         }
@@ -126,16 +119,28 @@ class ViewTicket(LRM, View):
 
     def post(self, request, pk, *args, **kwargs):
         ticket = get_object_or_404(Ticket, pk=pk)
-        print(self.request.POST)
-        formset = formset_factory(TicketItemCompletionForm, self.request.POST)
-        if formset.is_valid():
-            for form in formset:
-                form.save()
-            messages.success('Ticket updated.')
-            return reverse('view-ticket', pk=pk)
+        form = TicketCompletionForm(self.request.POST, instance=ticket)
+        if form.is_valid():
+            form.save()
+            messages.success(self.request, 'Ticket updated.')
+            context = {
+            'ticket' : ticket,
+            'items' : ticket.ticketitem_set.all(),
+            'form' : TicketCompletionForm(instance=ticket),
+            'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
+            'title' : f'Ticket no.{ticket.id}'
+        }
+            return render(self.request, self.template_name, context)
         else:
-            messages.error('Failure updating ticket.')
-            return reverse('view-ticket', pk=pk)
+            messages.error(self.request, 'Failure updating ticket.')
+            context = {
+            'ticket' : ticket,
+            'items' : ticket.ticketitem_set.all(),
+            'form' : TicketCompletionForm(instance=ticket),
+            'currentUsers': getUsernamesFromIDs(getCurrentUsers()),
+            'title' : f'Ticket no.{ticket.id}'
+        }
+            return render(self.request, self.template_name, context)
 
         
 
