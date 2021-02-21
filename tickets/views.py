@@ -75,7 +75,6 @@ class CreateTicket(LRM, View):
         itemFormset = self.itemFormset(self.request.POST)
         ticketform = TicketForm(self.request.POST)
         if ticketform.is_valid() and itemFormset.is_valid():
-            ticketform.cleaned_data['company'] = self.request.user.profile.company   #not working
             ticketform.save()
             self.createTicketItem(self.request, formcount)
             return HttpResponseRedirect(reverse("list-tickets"))
@@ -167,6 +166,7 @@ class ListCustomers(LRM, ListView):
     model = Customer
     context_object_name ='customers'
     ordering = ['-active','lastName']
+    paginate_by = 10
 
 #view for creating new boats
 class CreateBoat(LRM, CreateView):
@@ -189,6 +189,7 @@ class ListBoats(LRM, ListView):
     model = Boat
     context_object_name = 'boats'
     ordering = ['-active','slip']
+    paginate_by = 10
 
 
 # SUPPLEMENTAL
