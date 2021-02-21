@@ -52,9 +52,11 @@ class ListEmployees(LRM, ListView):
     model = Profile
     context_object_name = 'employees'
 
+#Displays current company and form to update
 class CompanyView(LRM, View):
     template_name = 'users/company.html'
 
+    #creates empty form and passes data
     def get(self, request, *args, **kwargs):
         user = self.request.user
         if user.profile.company:
@@ -69,6 +71,7 @@ class CompanyView(LRM, View):
         }
         return render(request, self.template_name, context)
 
+    #logic for processing form
     def post(self, request, *args, **kwargs):
         form = CompanyUpdateForm(self.request.POST)
         if form.is_valid():
@@ -92,6 +95,7 @@ class CompanyView(LRM, View):
 
         return redirect('company')
 
+#View for creating companys using company model.
 class CreateCompany(LRM, CreateView):
     template_name = 'users/company_form.html'
     model = Company

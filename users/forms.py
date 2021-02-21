@@ -24,7 +24,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['picture']
 
-
+#this form doesn't directly interact with a model. fields are determined below
 class CompanyUpdateForm(forms.Form):
     company = forms.ModelChoiceField(queryset=Company.objects.all(), required=False)
     key = forms.CharField(max_length=12, required=False)

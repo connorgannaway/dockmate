@@ -60,13 +60,11 @@ class CreateTicket(LRM, View):
     def post(self, request, *args, **kwargs):
         #copying data to add ForeignKey relationships
         data = self.request.POST.copy()
-        print(data)
         nextTicketID = Ticket.objects.all().count() + 1
         nextTicket = True
         formcount = 0
         #looping through forms in post to add foreignkey field
         while nextTicket:
-            print(f'itr-{formcount}')
             if data.get(f'form-{formcount}-item'):
                 data.appendlist(f'form-{formcount}-ticket', f'{nextTicketID}')
                 formcount += 1
@@ -77,6 +75,7 @@ class CreateTicket(LRM, View):
         itemFormset = self.itemFormset(self.request.POST)
         ticketform = TicketForm(self.request.POST)
         if ticketform.is_valid() and itemFormset.is_valid():
+            ticketform.cleaned_data['company'] = self.request.user.profile.company   #not working
             ticketform.save()
             self.createTicketItem(self.request, formcount)
             return HttpResponseRedirect(reverse("list-tickets"))
@@ -102,9 +101,11 @@ class CreateTicket(LRM, View):
                 )
             item.save()
             
+#single-ticket view that also displays completion form
 class ViewTicket(LRM, View):
     template_name = 'tickets/ticket_view.html'
     
+    #generate form and pass data
     def get(self, request, pk, *args, **kwargs):
         ticket = get_object_or_404(Ticket, pk=pk)
 
@@ -117,6 +118,7 @@ class ViewTicket(LRM, View):
         }
         return render(request, self.template_name, context)
 
+    #save form and generate new form
     def post(self, request, pk, *args, **kwargs):
         ticket = get_object_or_404(Ticket, pk=pk)
         form = TicketCompletionForm(self.request.POST, instance=ticket)
