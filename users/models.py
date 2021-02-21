@@ -26,9 +26,10 @@ class Profile(models.Model):
         return f"{self.user.username}'s Profile"
 
     #overriding save method to resize image before saving.
-    def save(self, *args, **kwargs):
+    #used for local file systems, does not work with AWS S3
+"""     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         image = Image.open(self.picture.path)
         if image.width > 300 or image.height > 300:
             image.thumbnail((300, 300))
-            image.save(self.picture.path)
+            image.save(self.picture.path) """

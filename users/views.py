@@ -51,7 +51,6 @@ def profile(request):
 class ListEmployees(LRM, ListView):
     model = Profile
     context_object_name = 'employees'
-    paginate_by = 10
 
 #Displays current company and form to update
 class CompanyView(LRM, View):
