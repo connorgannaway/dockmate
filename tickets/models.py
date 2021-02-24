@@ -12,7 +12,7 @@ class Customer(models.Model):
     firstName = models.CharField(max_length=25)
     lastName = models.CharField(max_length=25)
     email = models.EmailField()
-    phone = models.PositiveIntegerField(default=0)
+    phone = models.CharField(max_length=15)
     dateAdded = models.DateTimeField(default=timezone.now)
     active = models.BooleanField(default=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
